@@ -1,0 +1,31 @@
+FROM node:9.11.1-alpine
+
+# Create app directory
+WORKDIR /app
+
+ENV MONGO_DB_DEFAULT_PORT 27017
+ENV MONGO_DB_DATABASE abDB
+ENV MONGO_DB_USER mongodsUser
+ENV MONGO_DB_PASSWORD L00pBack
+ENV MONGO_DB_NAME abDS
+ENV MONGO_DB_DEV_HOST db-dev
+ENV MONGO_DB_DEV_PORT 27007
+ENV MONGO_DB_DEV_URL mongodb://db-dev:27007/
+ENV API_DEV_PORT 8000
+
+# install nodemon for debugging purpose
+RUN npm install nodemon@latest -g
+
+# A wildcard is used to copy the package files.
+COPY package.json /app/package.json
+
+# Install app dependencies
+# For production, use npm install --only=production
+RUN npm install
+RUN mv /app/node_modules /node_modules
+
+# Bundle app source
+COPY . /app
+
+EXPOSE 3000
+CMD ["npm", "nodemon"]

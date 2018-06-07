@@ -1,0 +1,42 @@
+{
+  "name": "auditboard",
+  "version": "1.0.0",
+  "main": "server/server.js",
+  "engines": {
+    "node": ">=4"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "start": "node .",
+    "posttest": "npm run lint && nsp check",
+    "debug": "node --nolazy --inspect-brk=5858 server/server.js",
+    "test": "NODE_ENV=Test mocha test/**/*.js",
+    "nodemon": "NODE_ENV=Development nodemon -L --inspect=0.0.0.0:5858"
+  },
+  "dependencies": {
+    "compression": "^1.0.3",
+    "cors": "^2.5.2",
+    "helmet": "^3.10.0",
+    "loopback": "^3.19.0",
+    "loopback-boot": "^2.6.5",
+    "loopback-component-explorer": "^6.0.0",
+    "loopback-connector-mongodb": "^3.4.3",
+    "serve-favicon": "^2.0.1",
+    "strong-error-handler": "^2.0.0"
+  },
+  "devDependencies": {
+    "async": "^2.6.1",
+    "chai": "^4.1.2",
+    "chai-http": "^4.0.0",
+    "eslint": "^3.17.1",
+    "eslint-config-loopback": "^8.0.0",
+    "mocha": "^5.2.0",
+    "nsp": "^3.2.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/dfs-activedisclosure/auditboard.git"
+  },
+  "license": "UNLICENSED",
+  "description": "auditboard"
+}

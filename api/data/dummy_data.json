@@ -1,0 +1,55 @@
+{
+  "user": {
+    "email": "test@test.com",
+    "password": "test"
+  },
+  "cbUsers": [{
+      "email": "preparer1@email.com",
+      "firstName": "FirstName",
+      "lastName": "LastName"
+    },
+    {
+      "email": "reviewer1@email.com",
+      "firstName": "FirstName",
+      "lastName": "LastName"
+    },
+    {
+      "email": "preparer2@email.com",
+      "firstName": "FirstName",
+      "lastName": "LastName"
+    },
+    {
+      "email": "reviewer2@email.com",
+      "firstName": "FirstName",
+      "lastName": "LastName"
+    }
+  ],
+  "files": [{
+      "name": "FileName1",
+      "size": 256,
+      "url": "file://url1.ext"
+    },
+    {
+      "name": "FileName2",
+      "size": 256,
+      "url": "file://url2.ext"
+    }
+  ],
+  "fileRequests": [{
+      "title": "FileRequestTitle1",
+      "description": "FileRequestDescription1",
+      "status": "Open",
+      "preparerUserId": "",
+      "reviewerUserId": "",
+      "fileIds": []
+    },
+    {
+      "title": "FileRequestTitle2",
+      "description": "FileRequestDescription2",
+      "status": "Closed",
+      "preparerUserId": "",
+      "reviewerUserId": "",
+      "fileIds": []
+    }
+  ]
+}

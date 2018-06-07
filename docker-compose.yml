@@ -1,0 +1,64 @@
+version: '3.1'
+
+services:
+  db-dev:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    volumes:
+      - ./db:/data/db
+    ports:
+      - "${MONGO_DB_DEV_PORT}:${MONGO_DB_DEFAULT_PORT}"
+    command: mongod --config /data/db/mongod.conf
+  
+  db-test:
+    image: mongo:latest
+    container_name: mongodb-test
+    restart: always
+    volumes:
+      - ./db:/data/db
+    ports:
+      - "${MONGO_DB_TEST_PORT}:${MONGO_DB_DEFAULT_PORT}"
+    command: mongod --config /data/db/mongod_test.conf
+
+  api-dev:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile-dev
+    environment:
+      - MONGO_DB_HOST=${MONGO_DB_DEV_HOST}
+      - MONGO_DB_URL=${MONGO_DB_DEV_URL}
+      - MONGO_DB_PORT=${MONGO_DB_DEV_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}
+      - MONGO_DB_USER=${MONGO_DB_USER}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+    command: npm run nodemon
+    volumes:
+      - ./api:/app
+    ports:
+      - "${API_DEV_PORT}:3000"
+      - "5858:5858"
+    depends_on:
+      - db-dev
+  
+  api-test:
+    build: 
+      context: ./api
+      dockerfile: Dockerfile-test
+    environment:
+      - MONGO_DB_HOST=${MONGO_DB_TEST_HOST}
+      - MONGO_DB_URL=${MONGO_DB_TEST_URL}
+      - MONGO_DB_PORT=${MONGO_DB_TEST_PORT}
+      - MONGO_DB_DATABASE=${MONGO_DB_DATABASE}
+      - MONGO_DB_USER=${MONGO_DB_USER}
+      - MONGO_DB_PASSWORD=${MONGO_DB_PASSWORD}
+      - MONGO_DB_NAME=${MONGO_DB_NAME}
+    command: npm run test
+    volumes:
+      - ./api:/app
+    ports:
+      - "${API_TEST_PORT}:3000"
+      - "5858:5858"
+    depends_on:
+      - db-test
